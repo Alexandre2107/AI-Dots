@@ -1,0 +1,5 @@
+public class Tabuleiro {
+    public static void main(String[] args) throws Exception {
+        // tenho que criar um tabuleiro 3x3, para o jogo dots, o tabuleiro será uma matriz de caractere de 5x5, onde nas posições (0,0 ; 0,2; 0,4; 2,0; 2,2; 2,4; 4,0; 4,2; 4,4) tem apenas pontos, nas posições (1,1; 1,3; 3,1; 3,3) tem um X (onde será quando os jogadores A ou B pontuarem) e nas demais posições tem um espaço em branco, onde serão colocados os traços que ligam os pontos. Precisa criar 2 jogadores A e B. As jogadas podem ser feitas pelas jogadas 1 (ponto 0,1), jogada 2 (ponto 0,3), jogada 3 (ponto 1,0), jogada 4 (ponto 1,2), jogada 5 (ponto 1,4), jogada 6 (ponto 2,1), jogada 7 (ponto 2,3), jogada 8 (ponto 3,0), jogada 9 (ponto 3,2), jogada 10 (ponto 3,4), jogada 11 (ponto 4,1), jogada 12 (ponto 4,3). Fazer a verificação em cada jogada de cada jogador, verificando se um quadrado foi fechado, se o quadrado for fechado por um dos jogadores, marcar no meio do quadrado o jogador respectivo, e o jogador que fechou o quadrado joga novamente. O jogo termina quando todos os pontos estiverem ligados. O jogador que fizer mais pontos ganha o jogo.
+    }
+}
