@@ -45,7 +45,7 @@ public class Estado {
   public boolean fimDeJogo() {
     for (int i = 0; i < Main.boardSize; i++) {
       for (int j = 0; j < Main.boardSize; j++) {
-        if (tabuleiro[i][j].player != null && tabuleiro[i][j].player == "") {
+        if (tabuleiro[i][j].jogador != null && tabuleiro[i][j].jogador == "") {
           return false;
         }
       }
@@ -71,9 +71,38 @@ public class Estado {
         }
         break;
       case BAIXO:
+        if (move.j < Main.boardSize - 1) {
+          boxesMoves.add(new Move(move.i, move.j + 1, Caixa.Posicao.CIMA));
+          
+        }
+        break;
+      case ESQUERDA:
+        if (move.i > 0) {
+          boxesMoves.add(new Move(move.i - 1, move.j, Caixa.Posicao.DIREITA));
+        }
+        break;
+      case DIREITA:
+        if (move.i < Main.boardSize - 1) {
+          boxesMoves.add(new Move(move.i + 1, move.j, Caixa.Posicao.ESQUERDA));
+        }
+        break;
 
       default:
         break;
     }
+
+    for (Move currentMove: boxesMoves) {
+      Caixa caixaAtual = this.getCaixa(currentMove);
+      caixaAtual.lados.put(currentMove.posicaoLinha, true);
+      this.movPossiveis.remove(currentMove.toString());
+
+      if (!caixaAtual.isBoxOpen()) {
+        caixaAtual.jogador = this.vezJogador1?Main.playerName:Main.playerName2;
+        this.PontuacaoJogador2 = this.vezJogador1?this.PontuacaoJogador2:this.PontuacaoJogador2 + 1;
+        this.PontuacaoJogador1 = this.vezJogador1?this.PontuacaoJogador1 + 1:this.PontuacaoJogador1;
+      }
+
+    }
+    this.vezJogador1 = !this.vezJogador1;
   }
 }
