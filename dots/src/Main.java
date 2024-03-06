@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +7,8 @@ public class Main {
   public static String playerName = "Me";
   public static String aiName = "Ai";
   private static Scanner scanner = new Scanner(System.in);
-  private static int depth = 2;
+  private static Strategies.TYPE strategyType;
+  private static int depth;
 
   public static void main(String[] args) {
 
@@ -28,7 +30,7 @@ public class Main {
     depth = scanner.nextInt();
     System.out.println();
 
-    Estado rootState = new Estado();
+    State rootState = new State();
     rootState.init();
     rootState.isHumanTurn = true;
     rootState.printState();
