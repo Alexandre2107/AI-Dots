@@ -1,82 +1,71 @@
-
 import java.util.Scanner;
 
 public class Main {
 
-  public static int boardSize;
-  public static String playerName = "Me";
-  public static String aiName = "Ai";
+  public static int tamanhoTabuleiro;
+  public static String nomeJogador = "Eu";
+  public static String nomeIA = "IA";
   private static Scanner scanner = new Scanner(System.in);
-  private static Strategies.TYPE strategyType;
-  private static int depth;
+  private static int profundidade;
+  private static Minimax minimax;
 
   public static void main(String[] args) {
 
-    System.out.println("Please enter the size of the board : ");
-    boardSize = scanner.nextInt();
-    System.out.print("Please select the strategy : ");
-
-    int index = 0;
-    for (Strategies.TYPE strategy : Strategies.TYPE.values()) {
-      index++;
-      System.out.print(index + ". " + strategy + "  ");
-    }
+    System.out.println("Qual o tamanho do tabuleiro? ");
+    tamanhoTabuleiro = scanner.nextInt();
 
     System.out.println();
 
-    strategyType = Strategies.TYPE.values()[scanner.nextInt() - 1];
-
-    System.out.println("Please set the tree depth : ");
-    depth = scanner.nextInt();
+    System.out.println("Qual a profundidade da árvore (1 a 10): ");
+    profundidade = scanner.nextInt();
     System.out.println();
 
-    State rootState = new State();
-    rootState.init();
-    rootState.isHumanTurn = true;
-    rootState.printState();
+    Estado estadoDaRaiz = new Estado();
+    estadoDaRaiz.init();
+    estadoDaRaiz.vezJogador1 = false;
+    estadoDaRaiz.printEstado();
 
-    while (!rootState.isGameOver()) {
+    while (!estadoDaRaiz.jogoAcabou()) {
 
-      String currentPlayer = rootState.isHumanTurn ? Main.playerName : Main.aiName;
-      System.out.println("User : " + currentPlayer);
+      String jogadorAtual = estadoDaRaiz.vezJogador1 ? Main.nomeJogador : Main.nomeIA;
+      System.out.println("Usuário: " + jogadorAtual);
 
-      if (rootState.isHumanTurn) {
+      if (estadoDaRaiz.vezJogador1) {
 
-        System.out.println("Please enter column coordinate : ");
+        System.out.println("Coordenada da coluna: ");
         int x = scanner.nextInt() - 1;
-        System.out.println("Please enter row coordinate : ");
+        System.out.println("Coordenada da linha: ");
         int y = scanner.nextInt() - 1;
-        System.out.println("Please enter line position : ");
-        System.out.println("Available line positions : ");
-        index = 0;
-        for (Box.Position availableMove : Box.Position.values()) {
+        System.out.println("Posição da linha (CIMA, BAIXO, ESQUERDA, DIREITA): ");
+        System.out.println("Posições das linha disponíveis: ");
+        int index = 0;
+        for (Caixa.Posicao moveDisponivel : Caixa.Posicao.values()) {
           index++;
-          System.out.print(index + ". " + availableMove + "  ");
+          System.out.print(index + ". " + moveDisponivel + "  ");
         }
         System.out.println();
-        Box.Position enteredPosition = Box.Position.values()[scanner.nextInt() - 1];
-        State.Move playerMove = new State.Move(x, y, enteredPosition);
-        rootState.placeLine(playerMove);
+        Caixa.Posicao posicaoColocada = Caixa.Posicao.values()[scanner.nextInt() - 1];
+        Estado.Move moveDoJogador = new Estado.Move(x, y, posicaoColocada);
+        estadoDaRaiz.colocaLinha(moveDoJogador);
+      }
 
-      } else {
-
+      else {
         try {
-
-          Strategies strategy = new Strategies(strategyType, rootState, depth);
-          System.out.println(String.format("Move %d %d %s", (strategy.bestMove.x + 1), (strategy.bestMove.y + 1),
-              strategy.bestMove.linePosition));
-          rootState.placeLine(strategy.bestMove);
+          minimax = new Minimax(estadoDaRaiz, profundidade);
         } catch (CloneNotSupportedException e) {
           e.printStackTrace();
         }
-
+        System.out.println("Movimento " + minimax.melhorJogada.x + " " + minimax.melhorJogada.y + " "
+            + minimax.melhorJogada.posicaoLinha);
+        estadoDaRaiz.colocaLinha(minimax.melhorJogada);
       }
 
-      rootState.printState();
+      estadoDaRaiz.printEstado();
     }
 
     System.out.println();
-    System.out.print(String.format("Player score : %d   Ai score : %d", rootState.playerScore, rootState.aiScore));
+    System.out.print(
+        "Pontuação Jogador1:" + estadoDaRaiz.placarJogador1 + "Pontuação Jogador2 :" + estadoDaRaiz.placarJogador2);
 
   }
 
