@@ -81,7 +81,6 @@ public class Estado {
   public void colocaLinha(Move move) {
 
     if (!move.moveIlegal()) {
-
       return;
     }
 
@@ -134,22 +133,18 @@ public class Estado {
     }
 
     for (Move movAtual : movCaixas) {
-
       Caixa caixaAtual = this.getCaixa(movAtual);
       caixaAtual.linhas.put(movAtual.posicaoLinha, true);
       this.movPossiveis.remove(movAtual.toString());
 
       if (!caixaAtual.isBoxOpen()) {
-
         caixaAtual.jogador = this.vezJogador1 ? Main.nomeJogador : Main.nomeIA;
         this.placarJogador2 = this.vezJogador1 ? this.placarJogador2 : this.placarJogador2 + 1;
         this.placarJogador1 = this.vezJogador1 ? this.placarJogador1 + 1 : this.placarJogador1;
       }
-
     }
 
     this.vezJogador1 = !this.vezJogador1;
-
   }
 
   public void printEstado() {

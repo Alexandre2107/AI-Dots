@@ -8,6 +8,7 @@ public class Main {
   private static Scanner scanner = new Scanner(System.in);
   private static int profundidade;
   private static Minimax minimax;
+  private static MiniMaxHeuristica miniMaxHeuristica;
 
   public static void main(String[] args) {
 
@@ -51,13 +52,21 @@ public class Main {
 
       else {
         try {
-          minimax = new Minimax(estadoDaRaiz, profundidade);
+          // minimax = new Minimax(estadoDaRaiz, profundidade);
+          miniMaxHeuristica = new MiniMaxHeuristica(estadoDaRaiz, profundidade);
         } catch (CloneNotSupportedException e) {
           e.printStackTrace();
         }
-        System.out.println("Movimento " + minimax.melhorJogada.x + " " + minimax.melhorJogada.y + " "
-            + minimax.melhorJogada.posicaoLinha);
-        estadoDaRaiz.colocaLinha(minimax.melhorJogada);
+        // System.out.println("Movimento " + minimax.melhorJogada.x + " " +
+        // minimax.melhorJogada.y + " "
+        // + minimax.melhorJogada.posicaoLinha);
+        // estadoDaRaiz.colocaLinha(minimax.melhorJogada);
+
+        System.out
+            .println("Movimento " + (miniMaxHeuristica.melhorJogada.x) + " " +
+                (miniMaxHeuristica.melhorJogada.y) + " "
+                + miniMaxHeuristica.melhorJogada.posicaoLinha);
+        estadoDaRaiz.colocaLinha(miniMaxHeuristica.melhorJogada);
       }
 
       estadoDaRaiz.printEstado();
@@ -65,7 +74,7 @@ public class Main {
 
     System.out.println();
     System.out.print(
-        "Pontuação Jogador1:" + estadoDaRaiz.placarJogador1 + "Pontuação Jogador2 :" + estadoDaRaiz.placarJogador2);
+        "Pontuação Humano: " + estadoDaRaiz.placarJogador1 + " ///// Pontuação IA: " + estadoDaRaiz.placarJogador2);
 
   }
 

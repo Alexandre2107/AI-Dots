@@ -13,7 +13,6 @@ public class Minimax {
     int minScore = Integer.MAX_VALUE;
 
     if (depth == 0 || state.jogoAcabou()) {
-
       return state.placarJogador2 - state.placarJogador1;
     }
 
