@@ -6,7 +6,7 @@ public class Main {
   public static String nomeJogador = "Eu";
   public static String nomeIA = "IA";
   private static Scanner scanner = new Scanner(System.in);
-  private static int profundidade;
+  public static int profundidade;
   private static Minimax minimax;
   private static MiniMaxHeuristica miniMaxHeuristica;
 
@@ -52,21 +52,24 @@ public class Main {
 
       else {
         try {
-          // minimax = new Minimax(estadoDaRaiz, profundidade);
-          miniMaxHeuristica = new MiniMaxHeuristica(estadoDaRaiz, profundidade);
+          minimax = new Minimax(estadoDaRaiz, profundidade);
+          // miniMaxHeuristica = new MiniMaxHeuristica(estadoDaRaiz, profundidade);
         } catch (CloneNotSupportedException e) {
           e.printStackTrace();
+          System.out.println("Erro");
         }
-        // System.out.println("Movimento " + minimax.melhorJogada.x + " " +
-        // minimax.melhorJogada.y + " "
-        // + minimax.melhorJogada.posicaoLinha);
-        // estadoDaRaiz.colocaLinha(minimax.melhorJogada);
-
-        System.out
-            .println("Movimento " + (miniMaxHeuristica.melhorJogada.x) + " " +
-                (miniMaxHeuristica.melhorJogada.y) + " "
-                + miniMaxHeuristica.melhorJogada.posicaoLinha);
-        estadoDaRaiz.colocaLinha(miniMaxHeuristica.melhorJogada);
+        System.out.println("Movimento " + (minimax.melhorJogada.x + 1) + " " +
+            (minimax.melhorJogada.y + 1) + " "
+            + minimax.melhorJogada.posicaoLinha);
+        estadoDaRaiz.colocaLinha(minimax.melhorJogada);
+        // if (miniMaxHeuristica.melhorJogada == null) {
+        // System.out.println("Erro");
+        // }
+        // System.out
+        // .println("Movimento " + (miniMaxHeuristica.melhorJogada.x + 1) + " " +
+        // (miniMaxHeuristica.melhorJogada.y + 1) + " "
+        // + miniMaxHeuristica.melhorJogada.posicaoLinha);
+        // estadoDaRaiz.colocaLinha(miniMaxHeuristica.melhorJogada);
       }
 
       estadoDaRaiz.printEstado();
@@ -75,6 +78,15 @@ public class Main {
     System.out.println();
     System.out.print(
         "Pontuação Humano: " + estadoDaRaiz.placarJogador1 + " ///// Pontuação IA: " + estadoDaRaiz.placarJogador2);
+    System.out.println();
+    if (estadoDaRaiz.placarJogador1 > estadoDaRaiz.placarJogador2) {
+      System.out.println("Você ganhou!");
+    } else if (estadoDaRaiz.placarJogador1 < estadoDaRaiz.placarJogador2) {
+      System.out.println("Você perdeu!");
+    } else {
+      System.out.println("Empate!");
+
+    }
 
   }
 

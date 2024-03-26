@@ -27,6 +27,7 @@ public class MiniMaxHeuristica {
       Estado.Move movPossivel = new Estado.Move(move);
       estado.proxEstado.colocaLinha(movPossivel);
       int currentScore = miniMax(estado.proxEstado, profundidade - 1, alpha, beta);
+      this.melhorJogada = movPossivel;
       if (currentScore > maxScore) {
         maxScore = currentScore;
         this.melhorJogada = movPossivel;
@@ -47,6 +48,7 @@ public class MiniMaxHeuristica {
       Estado.Move movPossivel = new Estado.Move(move);
       estado.proxEstado.colocaLinha(movPossivel);
       int currentScore = miniMax(estado.proxEstado, profundidade - 1, alpha, beta);
+      this.melhorJogada = movPossivel;
       if (currentScore < minScore) {
         minScore = currentScore;
         this.melhorJogada = movPossivel;

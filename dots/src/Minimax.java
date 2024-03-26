@@ -37,6 +37,7 @@ public class Minimax {
       estado.proxEstado.colocaLinha(movPossivel);
       int currentScore = miniMax(estado.proxEstado, profundidade - 1);
 
+      this.melhorJogada = movPossivel;
       if (isMax && pontuou <= currentScore) {
         pontuou = currentScore;
         this.melhorJogada = movPossivel;

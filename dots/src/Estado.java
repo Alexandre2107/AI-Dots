@@ -132,6 +132,8 @@ public class Estado {
 
     }
 
+    boolean vez = false;
+
     for (Move movAtual : movCaixas) {
       Caixa caixaAtual = this.getCaixa(movAtual);
       caixaAtual.linhas.put(movAtual.posicaoLinha, true);
@@ -141,10 +143,13 @@ public class Estado {
         caixaAtual.jogador = this.vezJogador1 ? Main.nomeJogador : Main.nomeIA;
         this.placarJogador2 = this.vezJogador1 ? this.placarJogador2 : this.placarJogador2 + 1;
         this.placarJogador1 = this.vezJogador1 ? this.placarJogador1 + 1 : this.placarJogador1;
+        vez = true;
       }
     }
 
-    this.vezJogador1 = !this.vezJogador1;
+    if (!vez) {
+      this.vezJogador1 = !this.vezJogador1;
+    }
   }
 
   public void printEstado() {
@@ -229,7 +234,6 @@ public class Estado {
     public boolean moveIlegal() {
 
       if (this.x > Main.tamanhoTabuleiro - 1 || this.y > Main.tamanhoTabuleiro - 1 || this.x < 0 || this.y < 0) {
-
         return false;
       }
 
